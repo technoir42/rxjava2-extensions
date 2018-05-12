@@ -1,0 +1,77 @@
+buildscript {
+    apply from: 'gradle/versions.gradle'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+plugins {
+    id 'com.jfrog.bintray' version '1.8.0'
+}
+
+group 'com.sch.rxjava'
+version '0.0.1'
+
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    api "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task javadocsJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            artifact javadocsJar
+            artifact sourcesJar
+        }
+    }
+}
+
+bintray {
+    user = findProperty('BINTRAY_USER')
+    key = findProperty('BINTRAY_KEY')
+    pkg {
+        repo = 'maven'
+        name = 'rxjava2-extensions'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/technoir42/rxjava2-extensions.git'
+        version {
+            name = project.version
+        }
+        publications = ['maven']
+    }
+}
