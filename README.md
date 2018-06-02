@@ -1,12 +1,12 @@
 RxJava 2 Extensions
 ===================
 
-TODO: jcenter badge
+Collection of additional operators and utilities for RxJava 2.
 
 ## Usage
 
 ```
-implementation "com.sch.rxjava:rxjava2-extensions:x.y.z"
+implementation "com.sch.rxjava:rxjava2-extensions:(insert latest version)"
 ```
 
 ## License
