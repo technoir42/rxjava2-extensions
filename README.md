@@ -1,6 +1,8 @@
 RxJava 2 Extensions
 ===================
 
+[ ![Download](https://api.bintray.com/packages/sch/maven/rxjava2-extensions/images/download.svg) ](https://bintray.com/sch/maven/rxjava2-extensions/_latestVersion)
+
 Collection of additional operators and utilities for RxJava 2.
 
 ## Usage
