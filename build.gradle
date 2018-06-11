@@ -15,7 +15,7 @@ plugins {
 }
 
 group 'com.sch.rxjava'
-version '0.0.1'
+version '0.0.2'
 
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
@@ -32,8 +32,21 @@ dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     api "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 test {

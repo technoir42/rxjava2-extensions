@@ -2,7 +2,10 @@
 
 package com.sch.rxjava2.extensions
 
+import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -12,4 +15,16 @@ inline fun <reified T : Any> Observable<*>.ofType(): Observable<T> {
 
 inline operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
     add(disposable)
+}
+
+fun <T : Any> Single<T>.sneakyGet(): T {
+    return subscribeWith(SneakyBlockingObserver<T>()).sneakyGet()
+}
+
+fun <T : Any> Maybe<T>.sneakyGet(): T? {
+    return subscribeWith(SneakyBlockingObserver<T>()).sneakyGet()
+}
+
+fun Completable.sneakyAwait() {
+    subscribeWith(SneakyBlockingObserver<Any>()).sneakyGet()
 }
