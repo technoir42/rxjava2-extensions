@@ -8,6 +8,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.observables.ConnectableObservable
 
 inline fun <reified T : Any> Observable<*>.ofType(): Observable<T> {
     return ofType(T::class.java)
@@ -27,4 +28,8 @@ fun <T : Any> Maybe<T>.sneakyGet(): T? {
 
 fun Completable.sneakyAwait() {
     subscribeWith(SneakyBlockingObserver<Any>()).sneakyGet()
+}
+
+fun <T : Any> ConnectableObservable<T>.autoConnectDisposable(numberOfObservers: Int = 1): DisposableObservable<T> {
+    return DisposableAutoConnectObservable.create(this, numberOfObservers)
 }

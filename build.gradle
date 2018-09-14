@@ -15,7 +15,7 @@ plugins {
 }
 
 group 'com.sch.rxjava'
-version '0.0.2'
+version '0.0.3'
 
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
