@@ -1,5 +1,5 @@
 ext {
-    kotlinVersion = '1.2.70'
-    rxJavaVersion = '2.2.2'
-    junitJupiterVersion = '5.3.1'
+    kotlinVersion = "1.2.70"
+    rxJavaVersion = "2.2.2"
+    junitJupiterVersion = "5.3.1"
 }
