@@ -1,4 +1,0 @@
-ext {
-    rxJavaVersion = "2.2.2"
-    junitJupiterVersion = "5.3.1"
-}
