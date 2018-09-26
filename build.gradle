@@ -13,7 +13,6 @@ plugins {
     id "com.jfrog.bintray" version "1.8.4"
 }
 
-group "com.sch.rxjava"
 version "0.0.3"
 
 repositories {
@@ -61,6 +60,8 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 publishing {
     publications {
         maven(MavenPublication) {
+            groupId "com.sch.rxjava"
+            artifactId "rxjava2-extensions"
             from components.java
 
             artifact javadocsJar
