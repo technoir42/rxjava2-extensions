@@ -9,6 +9,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observables.ConnectableObservable
+import java.util.concurrent.atomic.AtomicReference
 
 inline fun <reified T : Any> Observable<*>.ofType(): Observable<T> {
     return ofType(T::class.java)
@@ -32,4 +33,9 @@ fun Completable.sneakyAwait() {
 
 fun <T : Any> ConnectableObservable<T>.autoConnectDisposable(numberOfObservers: Int = 1): DisposableObservable<T> {
     return DisposableAutoConnectObservable.create(this, numberOfObservers)
+}
+
+fun <T> Observable<T>.pairwiseWithPrevious(): Observable<Pair<T, T?>> {
+    val previous = AtomicReference<T>()
+    return map { item -> Pair(item, previous.getAndSet(item)) }
 }
