@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class DisposableAutoConnectObservableTest {
     @Test
     @DisplayName("Connects at the required number of observers")
-    void testConnect() {
+    void connect() {
         PublishSubject<Integer> source = PublishSubject.create();
         ConnectableObservable<Integer> connectableSource = source.publish();
 
@@ -26,7 +26,7 @@ class DisposableAutoConnectObservableTest {
 
     @Test
     @DisplayName("Connects immediately if numberOfObservers is non-positive")
-    void testConnectImmediately() {
+    void connectImmediately() {
         PublishSubject<Integer> source = PublishSubject.create();
         ConnectableObservable<Integer> connectableSource = source.publish();
 
@@ -37,7 +37,7 @@ class DisposableAutoConnectObservableTest {
 
     @Test
     @DisplayName("Dispose terminates connection to source")
-    void testDispose() {
+    void dispose() {
         PublishSubject<Integer> source = PublishSubject.create();
         ConnectableObservable<Integer> connectableSource = source.publish();
 
