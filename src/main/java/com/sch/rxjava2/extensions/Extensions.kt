@@ -6,19 +6,9 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.observables.ConnectableObservable
 import io.reactivex.plugins.RxJavaPlugins
 import java.util.concurrent.atomic.AtomicReference
-
-inline fun <reified T : Any> Observable<*>.ofType(): Observable<T> {
-    return ofType(T::class.java)
-}
-
-inline operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
-    add(disposable)
-}
 
 fun <T : Any> Single<T>.sneakyGet(): T {
     return subscribeWith(SneakyBlockingObserver<T>()).sneakyGet()
