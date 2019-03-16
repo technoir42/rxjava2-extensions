@@ -11,6 +11,18 @@ Collection of additional operators and utilities for RxJava 2.
 implementation "com.sch.rxjava:rxjava2-extensions:(insert latest version)"
 ```
 
+## Extensions
+
+| **Extension**                               | **Description**                                                                                                                                                            |
+|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Completable.sneakyAwait                     | Like `Completable.blockingAwait` but doesn't wrap checked exceptions in `RuntimeException`.                                                                                |
+| Single.sneakyGet                            | Like `Single.blockingGet` but doesn't wrap checked exceptions in `RuntimeException`.                                                                                       |
+| Maybe.sneakyGet                             | Like `Maybe.blockingGet` but doesn't wrap checked exceptions in `RuntimeException`.                                                                                        |
+| Single.mapError                             | If upstream terminates with an error transforms the error by applying a provided function and terminates with the resulting error instead.                                 |
+| Observable.pairwiseWithPrevious             | Emits a pair of each upstream element and previous element.                                                                                                                |
+| ConnectableObservable.autoConnectDisposable | Like `ConnectableObservable.autoConnect` but returns `DisposableObservable` whose `dispose` method terminates the connection.                                              |
+| Transformers.valveLast                      | Relays values until the other `Observable` signals false and resumes if the other `Observable` signals true again. Drops all values except the last while valve is closed. |
+
 ## License
 
 ```
