@@ -30,7 +30,7 @@ dependencies {
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
-compileTestKotlin {
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = "1.8"
     }
