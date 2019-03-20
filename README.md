@@ -23,6 +23,10 @@ implementation "com.sch.rxjava:rxjava2-extensions:(insert latest version)"
 | ConnectableObservable.autoConnectDisposable | Like `ConnectableObservable.autoConnect` but returns `DisposableObservable` whose `dispose` method terminates the connection.                                              |
 | Transformers.valveLast                      | Relays values until the other `Observable` signals false and resumes if the other `Observable` signals true again. Drops all values except the last while valve is closed. |
 
+## Other
+
+* `FailFastErrorHandler` - RxJava error handler that fails fast on programming errors but ignores normal `UndeliverableException`s.
+
 ## License
 
 ```

@@ -12,7 +12,7 @@ plugins {
     id "com.github.ben-manes.versions" version "0.21.0"
 }
 
-version = "0.0.7"
+version = "0.0.9"
 
 repositories {
     mavenCentral()
@@ -23,8 +23,9 @@ dependencies {
     api "io.reactivex.rxjava2:rxjava:2.2.7"
 
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.4.0"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.4.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.4.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.4.1"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.4.1"
 }
 
 sourceCompatibility = "1.8"
