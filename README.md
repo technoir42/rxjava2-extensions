@@ -24,6 +24,7 @@ dependencies {
 | Completable.sneakyAwait                     | Like `Completable.blockingAwait` but doesn't wrap checked exceptions in `RuntimeException`.                                                                                |
 | Single.sneakyGet                            | Like `Single.blockingGet` but doesn't wrap checked exceptions in `RuntimeException`.                                                                                       |
 | Maybe.sneakyGet                             | Like `Maybe.blockingGet` but doesn't wrap checked exceptions in `RuntimeException`.                                                                                        |
+| Single.cacheSuccess                         | Stores success value from the source Single and replays it to observers.                                                                                                   |
 | Single.mapError                             | If upstream terminates with an error transforms the error by applying a provided function and terminates with the resulting error instead.                                 |
 | Observable.pairwiseWithPrevious             | Emits a pair of each upstream element and previous element.                                                                                                                |
 | ConnectableObservable.autoConnectDisposable | Like `ConnectableObservable.autoConnect` but returns `DisposableObservable` whose `dispose` method terminates the connection.                                              |
