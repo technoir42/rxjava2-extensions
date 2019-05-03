@@ -14,7 +14,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val ts = source.compose(Transformers.valveLast(other, true)).test()
+        val ts = ObservableValveLast.create(source, other, true).test()
 
         source.onNext(1)
         other.onNext(false)
@@ -29,7 +29,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val ts = source.compose(Transformers.valveLast(other, false)).test()
+        val ts = ObservableValveLast.create(source, other, false).test()
 
         source.onNext(1)
         source.onNext(2)
@@ -48,7 +48,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val ts = source.compose(Transformers.valveLast(other, true)).test()
+        val ts = ObservableValveLast.create(source, other, true).test()
 
         assertTrue(other.hasObservers())
         assertTrue(source.hasObservers())
@@ -65,7 +65,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        source.compose(Transformers.valveLast(other, true)).test()
+        ObservableValveLast.create(source, other, true).test()
 
         source.onComplete()
 
@@ -79,7 +79,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        source.compose(Transformers.valveLast(other, true)).test()
+        ObservableValveLast.create(source, other, true).test()
 
         source.onError(RuntimeException())
 
@@ -93,7 +93,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val ts = source.compose(Transformers.valveLast(other, false)).test()
+        val ts = ObservableValveLast.create(source, other, false).test()
 
         val error = RuntimeException()
         source.onError(error)
@@ -111,7 +111,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val ts = source.compose(Transformers.valveLast(other, false)).test()
+        val ts = ObservableValveLast.create(source, other, false).test()
 
         source.onComplete()
 
@@ -128,7 +128,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val ts = source.compose(Transformers.valveLast(other, true)).test()
+        val ts = ObservableValveLast.create(source, other, true).test()
 
         val error = RuntimeException()
         other.onError(error)
@@ -142,7 +142,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val ts = source.compose(Transformers.valveLast(other, true)).test()
+        val ts = ObservableValveLast.create(source, other, true).test()
 
         other.onComplete()
 

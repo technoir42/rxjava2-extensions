@@ -1,13 +1,16 @@
 package com.sch.rxjava2.extensions;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
 import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observables.ConnectableObservable;
 
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
+import static com.sch.rxjava2.extensions.Util.requireNonNull;
 
 /**
  * Wraps a {@link ConnectableObservable} and calls its connect() method once
@@ -35,7 +38,9 @@ public final class DisposableAutoConnectObservable<T> extends DisposableObservab
      * @param <T>               the type of the items emitted by the Observable.
      * @return the new Observable.
      */
-    public static <T> DisposableObservable<T> create(ConnectableObservable<? extends T> source, int numberOfObservers) {
+    @NonNull
+    public static <T> DisposableObservable<T> create(@NonNull ConnectableObservable<? extends T> source, int numberOfObservers) {
+        requireNonNull(source, "source is null");
         return new DisposableAutoConnectObservable<>(source, numberOfObservers);
     }
 

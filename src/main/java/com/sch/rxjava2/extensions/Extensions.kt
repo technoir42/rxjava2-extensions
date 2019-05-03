@@ -7,7 +7,6 @@ import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.observables.ConnectableObservable
-import io.reactivex.plugins.RxJavaPlugins
 import java.util.concurrent.atomic.AtomicReference
 
 fun <T : Any> Single<T>.sneakyGet(): T {
@@ -22,12 +21,12 @@ fun Completable.sneakyAwait() {
     subscribeWith(SneakyBlockingObserver<Any>()).sneakyGet()
 }
 
-fun <T : Any> ConnectableObservable<T>.autoConnectDisposable(numberOfObservers: Int = 1): DisposableObservable<T> {
+inline fun <T : Any> ConnectableObservable<T>.autoConnectDisposable(numberOfObservers: Int = 1): DisposableObservable<T> {
     return DisposableAutoConnectObservable.create(this, numberOfObservers)
 }
 
-fun <T> Single<T>.mapError(mapper: (Throwable) -> Throwable): Single<T> {
-    return RxJavaPlugins.onAssembly(SingleMapError(this, mapper))
+inline fun <T> Single<T>.mapError(noinline mapper: (Throwable) -> Throwable): Single<T> {
+    return SingleMapError.create(this, mapper)
 }
 
 fun <T> Observable<T>.pairwiseWithPrevious(): Observable<Pair<T, T?>> {

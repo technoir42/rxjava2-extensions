@@ -34,10 +34,7 @@ public final class Transformers {
     @NonNull
     @SchedulerSupport(SchedulerSupport.NONE)
     public static <T> ObservableTransformer<T, T> valveLast(@NonNull Observable<Boolean> other, boolean defaultOpen) {
-        if (other == null) {
-            throw new NullPointerException("other is null");
-        }
-        return upstream -> new ObservableValveLast<>(upstream, other, defaultOpen);
+        return upstream -> ObservableValveLast.create(upstream, other, defaultOpen);
     }
 
     private Transformers() {
