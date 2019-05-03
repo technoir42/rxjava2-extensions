@@ -21,8 +21,12 @@ fun Completable.sneakyAwait() {
     subscribeWith(SneakyBlockingObserver<Any>()).sneakyGet()
 }
 
-inline fun <T : Any> ConnectableObservable<T>.autoConnectDisposable(numberOfObservers: Int = 1): DisposableObservable<T> {
+inline fun <T> ConnectableObservable<T>.autoConnectDisposable(numberOfObservers: Int = 1): DisposableObservable<T> {
     return DisposableAutoConnectObservable.create(this, numberOfObservers)
+}
+
+inline fun <T> Single<T>.cacheSuccess(): Single<T> {
+    return SingleCacheSuccess.create(this)
 }
 
 inline fun <T> Single<T>.mapError(noinline mapper: (Throwable) -> Throwable): Single<T> {
