@@ -140,4 +140,18 @@ class ObservableValveLatestTest {
             error.javaClass == IllegalStateException::class.java && error.message == "The valve source completed unexpectedly."
         }
     }
+
+    @Test
+    fun `Doesn't emit anything if source didn't emit while valve was closed`() {
+        val source = PublishSubject.create<Int>()
+        val other = BehaviorSubject.create<Boolean>()
+
+        val observer = ObservableValveLatest.create(source, other, true).test()
+
+        source.onNext(1)
+        other.onNext(false)
+        other.onNext(true)
+
+        observer.assertValues(1)
+    }
 }

@@ -43,8 +43,8 @@ public final class ObservableValveLatest<T> extends Observable<T> {
         private final Observer<? super T> actual;
         private final OtherObserver otherObserver;
         private final AtomicReference<Disposable> source = new AtomicReference<>();
+        private final AtomicReference<T> last = new AtomicReference<>();
         private final AtomicThrowable error = new AtomicThrowable();
-        private volatile T last;
         private volatile boolean done;
         private volatile boolean gate;
         private volatile boolean disposed;
@@ -76,7 +76,7 @@ public final class ObservableValveLatest<T> extends Observable<T> {
 
         @Override
         public void onNext(T t) {
-            last = t;
+            last.set(t);
             drain();
         }
 
@@ -111,6 +111,7 @@ public final class ObservableValveLatest<T> extends Observable<T> {
                 DisposableHelper.dispose(otherObserver);
                 actual.onError(ex);
             } else {
+                T last = this.last.getAndSet(null);
                 if (last != null) {
                     actual.onNext(last);
                 }
