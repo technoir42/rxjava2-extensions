@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-class ObservableValveLastTest {
+class ObservableValveLatestTest {
     @Test
     fun `Stops relaying values when the other Observable signals false`() {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val observer = ObservableValveLast.create(source, other, true).test()
+        val observer = ObservableValveLatest.create(source, other, true).test()
 
         source.onNext(1)
         other.onNext(false)
@@ -26,7 +26,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val observer = ObservableValveLast.create(source, other, false).test()
+        val observer = ObservableValveLatest.create(source, other, false).test()
 
         source.onNext(1)
         source.onNext(2)
@@ -44,7 +44,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val observer = ObservableValveLast.create(source, other, true).test()
+        val observer = ObservableValveLatest.create(source, other, true).test()
 
         assertTrue(other.hasObservers())
         assertTrue(source.hasObservers())
@@ -60,7 +60,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        ObservableValveLast.create(source, other, true).test()
+        ObservableValveLatest.create(source, other, true).test()
 
         source.onComplete()
 
@@ -73,7 +73,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        ObservableValveLast.create(source, other, true).test()
+        ObservableValveLatest.create(source, other, true).test()
 
         source.onError(RuntimeException())
 
@@ -86,7 +86,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val observer = ObservableValveLast.create(source, other, false).test()
+        val observer = ObservableValveLatest.create(source, other, false).test()
 
         val error = RuntimeException()
         source.onError(error)
@@ -103,7 +103,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val observer = ObservableValveLast.create(source, other, false).test()
+        val observer = ObservableValveLatest.create(source, other, false).test()
 
         source.onComplete()
 
@@ -119,7 +119,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val observer = ObservableValveLast.create(source, other, true).test()
+        val observer = ObservableValveLatest.create(source, other, true).test()
 
         val error = RuntimeException()
         other.onError(error)
@@ -132,7 +132,7 @@ class ObservableValveLastTest {
         val source = PublishSubject.create<Int>()
         val other = BehaviorSubject.create<Boolean>()
 
-        val observer = ObservableValveLast.create(source, other, true).test()
+        val observer = ObservableValveLatest.create(source, other, true).test()
 
         other.onComplete()
 

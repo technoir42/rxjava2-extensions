@@ -1,7 +1,5 @@
 package com.sch.rxjava2.extensions;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -10,21 +8,27 @@ import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.util.AtomicThrowable;
 import io.reactivex.plugins.RxJavaPlugins;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import static com.sch.rxjava2.extensions.Util.requireNonNull;
 
-final class ObservableValveLast<T> extends Observable<T> {
+/**
+ * Relays values from source until the other Observable signals false and resumes if the other
+ * Observable signals true again. Drops all values except the latest while valve is closed.
+ */
+public final class ObservableValveLatest<T> extends Observable<T> {
     private final Observable<T> source;
     private final Observable<Boolean> other;
     private final boolean defaultOpen;
 
     @NonNull
-    static <T> Observable<T> create(@NonNull Observable<T> source, @NonNull Observable<Boolean> other, boolean defaultOpen) {
+    public static <T> Observable<T> create(@NonNull Observable<T> source, @NonNull Observable<Boolean> other, boolean defaultOpen) {
         requireNonNull(source, "source is null");
         requireNonNull(other, "other is null");
-        return RxJavaPlugins.onAssembly(new ObservableValveLast<>(source, other, defaultOpen));
+        return RxJavaPlugins.onAssembly(new ObservableValveLatest<>(source, other, defaultOpen));
     }
 
-    private ObservableValveLast(Observable<T> source, Observable<Boolean> other, boolean defaultOpen) {
+    private ObservableValveLatest(Observable<T> source, Observable<Boolean> other, boolean defaultOpen) {
         this.source = source;
         this.other = other;
         this.defaultOpen = defaultOpen;
@@ -146,4 +150,3 @@ final class ObservableValveLast<T> extends Observable<T> {
         }
     }
 }
-

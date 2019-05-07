@@ -37,3 +37,7 @@ fun <T> Observable<T>.pairwiseWithPrevious(): Observable<Pair<T, T?>> {
     val previous = AtomicReference<T>()
     return map { item -> Pair(item, previous.getAndSet(item)) }
 }
+
+inline fun <T> Observable<T>.valveLatest(other: Observable<Boolean>, defaultOpen: Boolean = true): Observable<T> {
+    return ObservableValveLatest.create(this, other, defaultOpen)
+}
