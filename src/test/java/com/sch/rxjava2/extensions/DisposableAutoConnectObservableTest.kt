@@ -3,13 +3,11 @@ package com.sch.rxjava2.extensions
 import io.reactivex.subjects.PublishSubject
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class DisposableAutoConnectObservableTest {
     @Test
-    @DisplayName("Connects at the required number of observers")
-    fun connect() {
+    fun `Connects at the required number of observers`() {
         val source = PublishSubject.create<Int>()
         val observable = source.publish().autoConnectDisposable(2)
 
@@ -21,8 +19,7 @@ class DisposableAutoConnectObservableTest {
     }
 
     @Test
-    @DisplayName("Connects immediately if numberOfObservers is non-positive")
-    fun connectImmediately() {
+    fun `Connects immediately if numberOfObservers is non-positive`() {
         val source = PublishSubject.create<Int>()
         source.publish().autoConnectDisposable(0)
 
@@ -30,8 +27,7 @@ class DisposableAutoConnectObservableTest {
     }
 
     @Test
-    @DisplayName("Dispose terminates connection to source")
-    fun dispose() {
+    fun `Dispose terminates connection to source`() {
         val source = PublishSubject.create<Int>()
         val observable = source.publish().autoConnectDisposable(1)
 

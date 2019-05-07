@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class SingleCacheSuccessTest {
     @Test
-    fun `subscribes to source only once`() {
+    fun `Subscribes to source only once`() {
         val count = AtomicInteger()
         val cache = SingleCacheSuccess.create(Single.fromCallable {
             count.getAndIncrement()
@@ -23,7 +23,7 @@ class SingleCacheSuccessTest {
     }
 
     @Test
-    fun `resubscribes to source after error`() {
+    fun `Resubscribes to source after error`() {
         val count = AtomicInteger()
         val cache = SingleCacheSuccess.create(Single.fromCallable {
             if (count.getAndIncrement() == 0) {
@@ -58,14 +58,14 @@ class SingleCacheSuccessTest {
         val ps = PublishSubject.create<Int>()
         val cache = SingleCacheSuccess.create(ps.single(-99))
 
-        val ts1 = cache.test()
-        val ts2 = cache.test()
+        val observer1 = cache.test()
+        val observer2 = cache.test()
 
         ps.onNext(1)
         ps.onComplete()
 
-        ts1.assertResult(1)
-        ts2.assertResult(1)
+        observer1.assertResult(1)
+        observer2.assertResult(1)
     }
 
     @Test
@@ -73,16 +73,16 @@ class SingleCacheSuccessTest {
         val ps = PublishSubject.create<Int>()
         val cache = SingleCacheSuccess.create(ps.single(-99))
 
-        val ts1 = cache.test()
-        val ts2 = cache.test()
+        val observer1 = cache.test()
+        val observer2 = cache.test()
 
-        ts1.cancel()
+        observer1.cancel()
 
         ps.onNext(1)
         ps.onComplete()
 
-        ts1.assertNoValues().assertNoErrors().assertNotComplete()
-        ts2.assertResult(1)
+        observer1.assertNoValues().assertNoErrors().assertNotComplete()
+        observer2.assertResult(1)
     }
 
     @Test
@@ -90,22 +90,22 @@ class SingleCacheSuccessTest {
         val ps = PublishSubject.create<Int>()
         val cache = SingleCacheSuccess.create(ps.single(-99))
 
-        val ts1 = TestSubscriber<Int>()
-        val ts2 = object : TestSubscriber<Int>() {
+        val observer1 = TestSubscriber<Int>()
+        val observer2 = object : TestSubscriber<Int>() {
             override fun onNext(t: Int) {
                 super.onNext(t)
-                ts1.cancel()
+                observer1.cancel()
             }
         }
 
-        cache.toFlowable().subscribe(ts2)
-        cache.toFlowable().subscribe(ts1)
+        cache.toFlowable().subscribe(observer2)
+        cache.toFlowable().subscribe(observer1)
 
         ps.onNext(1)
         ps.onComplete()
 
-        ts1.assertNoValues().assertNoErrors().assertNotComplete()
-        ts2.assertResult(1)
+        observer1.assertNoValues().assertNoErrors().assertNotComplete()
+        observer2.assertResult(1)
     }
 
     @Test
@@ -113,20 +113,20 @@ class SingleCacheSuccessTest {
         val ps = PublishSubject.create<Int>()
         val cache = SingleCacheSuccess.create(ps.single(-99))
 
-        val ts1 = TestSubscriber<Int>()
-        val ts2 = object : TestSubscriber<Int>() {
+        val observer1 = TestSubscriber<Int>()
+        val observer2 = object : TestSubscriber<Int>() {
             override fun onError(t: Throwable) {
                 super.onError(t)
-                ts1.cancel()
+                observer1.cancel()
             }
         }
 
-        cache.toFlowable().subscribe(ts2)
-        cache.toFlowable().subscribe(ts1)
+        cache.toFlowable().subscribe(observer2)
+        cache.toFlowable().subscribe(observer1)
 
         ps.onError(IOException())
 
-        ts1.assertNoValues().assertNoErrors().assertNotComplete()
-        ts2.assertFailure(IOException::class.java)
+        observer1.assertNoValues().assertNoErrors().assertNotComplete()
+        observer2.assertFailure(IOException::class.java)
     }
 }

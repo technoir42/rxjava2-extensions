@@ -4,13 +4,11 @@ import io.reactivex.Single
 import io.reactivex.exceptions.CompositeException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertSame
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class SingleMapErrorTest {
     @Test
-    @DisplayName("Signals onError with error returned by mapper")
-    fun map() {
+    fun `Signals onError with error returned by mapper`() {
         val upstreamError = Exception()
         val mappedError = Exception(upstreamError)
         Single.error<Any>(upstreamError)
@@ -20,24 +18,22 @@ class SingleMapErrorTest {
     }
 
     @Test
-    @DisplayName("Signals onError with CompositeException if mapper throws an exception")
-    fun mapperThrows() {
+    fun `Signals onError with CompositeException if mapper throws an exception`() {
         val upstreamError = Exception()
         val mapperError = Exception()
-        val ts = Single.error<Any>(upstreamError)
+        val observer = Single.error<Any>(upstreamError)
                 .mapError { throw mapperError }
                 .test()
                 .assertError(CompositeException::class.java)
 
-        val error = ts.errors().first() as CompositeException
+        val error = observer.errors().first() as CompositeException
         assertEquals(2, error.exceptions.size)
         assertSame(upstreamError, error.exceptions[0])
         assertSame(mapperError, error.exceptions[1])
     }
 
     @Test
-    @DisplayName("Passes-through the success value")
-    fun success() {
+    fun `Passes-through the success value`() {
         Single.just(1)
                 .mapError { RuntimeException() }
                 .test()
