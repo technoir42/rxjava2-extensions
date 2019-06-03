@@ -1,3 +1,4 @@
+@file:JvmName("-Extensions")
 @file:Suppress("NOTHING_TO_INLINE")
 
 package com.sch.rxjava2.extensions
