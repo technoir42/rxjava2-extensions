@@ -7,9 +7,10 @@ buildscript {
 plugins {
     id "java-library"
     id "org.jetbrains.kotlin.jvm" version "1.3.31"
-    id "maven-publish"
     id "com.jfrog.bintray" version "1.8.4"
     id "com.github.ben-manes.versions" version "0.21.0"
+    id "maven-publish"
+    id "signing"
 }
 
 group = "com.github.technoir42"
@@ -64,6 +65,10 @@ publishing {
             artifact packageSources
         }
     }
+}
+
+signing {
+    sign publishing.publications.maven
 }
 
 bintray {
