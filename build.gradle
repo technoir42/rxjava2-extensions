@@ -7,14 +7,13 @@ buildscript {
 plugins {
     id "java-library"
     id "org.jetbrains.kotlin.jvm" version "1.3.31"
-    id "com.jfrog.bintray" version "1.8.4"
     id "com.github.ben-manes.versions" version "0.21.0"
     id "maven-publish"
     id "signing"
 }
 
 group = "com.github.technoir42"
-version = "0.1.1"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -22,7 +21,7 @@ repositories {
 
 dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib"
-    api "io.reactivex.rxjava2:rxjava:2.2.8"
+    api "io.reactivex.rxjava2:rxjava:2.2.9"
 
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib"
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.4.2"
@@ -63,27 +62,44 @@ publishing {
 
             artifact packageJavadoc
             artifact packageSources
+
+            pom {
+                name = "RxJava 2 Extensions"
+                description = "Collection of handy operators and utilities for RxJava 2."
+                url = "https://github.com/technoir42/rxjava2-extensions"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "technoir"
+                        name = "Sergey Chelombitko"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git://github.com/technoir42/rxjava2-extensions.git"
+                    developerConnection = "scm:git:ssh://git@github.com/technoir42/rxjava2-extensions.git"
+                    url = "https://github.com/technoir42/rxjava2-extensions"
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "bintray"
+            url = "https://api.bintray.com/maven/sch/maven/rxjava2-extensions/;publish=1"
+            credentials {
+                username = findProperty("BINTRAY_USER")
+                password = findProperty("BINTRAY_KEY")
+            }
         }
     }
 }
 
 signing {
     sign publishing.publications.maven
-}
-
-bintray {
-    user = findProperty("BINTRAY_USER")
-    key = findProperty("BINTRAY_KEY")
-    publish = true
-
-    pkg {
-        repo = "maven"
-        name = "rxjava2-extensions"
-        licenses = ["Apache-2.0"]
-        vcsUrl = "https://github.com/technoir42/rxjava2-extensions.git"
-        version {
-            name = project.version
-        }
-        publications = ["maven"]
-    }
 }
