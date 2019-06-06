@@ -1,4 +1,4 @@
-package com.sch.rxjava2.extensions;
+package com.github.technoir42.rxjava2.extensions;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -10,7 +10,7 @@ import io.reactivex.plugins.RxJavaPlugins;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.sch.rxjava2.extensions.Util.requireNonNull;
+import static com.github.technoir42.rxjava2.extensions.Util.requireNonNull;
 
 /**
  * Relays values from source until the other Observable signals false and resumes if the other

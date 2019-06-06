@@ -12,6 +12,7 @@ plugins {
     id "com.github.ben-manes.versions" version "0.21.0"
 }
 
+group = "com.github.technoir42"
 version = "0.1.1"
 
 repositories {
@@ -56,7 +57,6 @@ tasks.register("packageSources", Jar.class) {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId "com.sch.rxjava"
             artifactId "rxjava2-extensions"
             from components.java
 

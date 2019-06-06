@@ -1,4 +1,4 @@
-package com.sch.rxjava2.extensions;
+package com.github.technoir42.rxjava2.extensions;
 
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
@@ -9,7 +9,7 @@ import io.reactivex.exceptions.Exceptions;
 import io.reactivex.functions.Function;
 import io.reactivex.plugins.RxJavaPlugins;
 
-import static com.sch.rxjava2.extensions.Util.requireNonNull;
+import static com.github.technoir42.rxjava2.extensions.Util.requireNonNull;
 
 public final class SingleMapError<T> extends Single<T> {
     private final Single<T> source;

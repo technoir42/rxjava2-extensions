@@ -1,4 +1,4 @@
-package com.sch.rxjava2.extensions
+package com.github.technoir42.rxjava2.extensions
 
 import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject

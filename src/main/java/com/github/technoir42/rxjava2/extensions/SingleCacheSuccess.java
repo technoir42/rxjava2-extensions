@@ -1,7 +1,4 @@
-package com.sch.rxjava2.extensions;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
+package com.github.technoir42.rxjava2.extensions;
 
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
@@ -9,7 +6,10 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.plugins.RxJavaPlugins;
 
-import static com.sch.rxjava2.extensions.Util.requireNonNull;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static com.github.technoir42.rxjava2.extensions.Util.requireNonNull;
 
 /**
  * Stores the success value from the source Single and replays it to observers.

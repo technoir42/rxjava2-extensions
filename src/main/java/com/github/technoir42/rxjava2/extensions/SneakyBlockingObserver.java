@@ -1,12 +1,12 @@
-package com.sch.rxjava2.extensions;
-
-import java.util.concurrent.CountDownLatch;
+package com.github.technoir42.rxjava2.extensions;
 
 import io.reactivex.CompletableObserver;
 import io.reactivex.MaybeObserver;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.internal.util.BlockingHelper;
+
+import java.util.concurrent.CountDownLatch;
 
 public final class SneakyBlockingObserver<T> extends CountDownLatch implements SingleObserver<T>, MaybeObserver<T>, CompletableObserver {
     private T value;

@@ -1,4 +1,4 @@
-package com.sch.rxjava2.extensions;
+package com.github.technoir42.rxjava2.extensions;
 
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.functions.Consumer;

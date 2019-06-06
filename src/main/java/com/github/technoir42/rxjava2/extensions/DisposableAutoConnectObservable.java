@@ -1,7 +1,4 @@
-package com.sch.rxjava2.extensions;
-
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
+package com.github.technoir42.rxjava2.extensions;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -10,7 +7,10 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observables.ConnectableObservable;
 
-import static com.sch.rxjava2.extensions.Util.requireNonNull;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static com.github.technoir42.rxjava2.extensions.Util.requireNonNull;
 
 /**
  * Wraps a {@link ConnectableObservable} and calls its connect() method once
