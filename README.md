@@ -8,12 +8,8 @@ Collection of additional operators and utilities for RxJava 2.
 ## Usage
 
 ```gradle
-repositories {
-    maven { url "https://dl.bintray.com/sch/maven" }
-}
-
 dependencies {
-    implementation "com.sch.rxjava:rxjava2-extensions:(insert latest version)"
+    implementation "com.github.technoir42:rxjava2-extensions:(insert latest version)"
 }
 ```
 
