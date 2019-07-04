@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.github.technoir42"
-version = "0.2.0"
+version = "0.2.1"
 
 repositories {
     mavenCentral()
@@ -45,13 +45,13 @@ test {
 tasks.register("packageJavadoc", Jar.class) {
     dependsOn tasks.named("javadoc")
     from javadoc.destinationDir
-    archiveClassifier.set("javadoc")
+    archiveClassifier = "javadoc"
 }
 
 tasks.register("packageSources", Jar.class) {
     dependsOn tasks.named("classes")
     from sourceSets.main.allSource
-    archiveClassifier.set("sources")
+    archiveClassifier = "sources"
 }
 
 publishing {

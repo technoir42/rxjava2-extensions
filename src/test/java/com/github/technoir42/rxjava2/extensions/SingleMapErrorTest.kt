@@ -12,9 +12,9 @@ class SingleMapErrorTest {
         val upstreamError = Exception()
         val mappedError = Exception(upstreamError)
         Single.error<Any>(upstreamError)
-                .mapError { mappedError }
-                .test()
-                .assertError(mappedError)
+            .mapError { mappedError }
+            .test()
+            .assertError(mappedError)
     }
 
     @Test
@@ -22,9 +22,9 @@ class SingleMapErrorTest {
         val upstreamError = Exception()
         val mapperError = Exception()
         val observer = Single.error<Any>(upstreamError)
-                .mapError { throw mapperError }
-                .test()
-                .assertError(CompositeException::class.java)
+            .mapError { throw mapperError }
+            .test()
+            .assertError(CompositeException::class.java)
 
         val error = observer.errors().first() as CompositeException
         assertEquals(2, error.exceptions.size)
@@ -35,8 +35,8 @@ class SingleMapErrorTest {
     @Test
     fun `Passes-through the success value`() {
         Single.just(1)
-                .mapError { RuntimeException() }
-                .test()
-                .assertResult(1)
+            .mapError { RuntimeException() }
+            .test()
+            .assertResult(1)
     }
 }

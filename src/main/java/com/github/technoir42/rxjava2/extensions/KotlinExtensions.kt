@@ -34,6 +34,14 @@ inline fun <T> Single<T>.mapError(noinline mapper: (Throwable) -> Throwable): Si
     return SingleMapError.create(this, mapper)
 }
 
+inline fun <T> Observable<T>.endWith(item: T): Observable<T> {
+    return Observable.concatArray(this, Observable.just(item))
+}
+
+inline fun <T> Observable<T>.surroundWith(before: T, after: T): Observable<T> {
+    return Observable.concatArray(Observable.just(before), this, Observable.just(after))
+}
+
 fun <T> Observable<T>.pairwiseWithPrevious(): Observable<Pair<T, T?>> {
     val previous = AtomicReference<T>()
     return map { item -> Pair(item, previous.getAndSet(item)) }
