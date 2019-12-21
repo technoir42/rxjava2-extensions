@@ -11,6 +11,10 @@ import io.reactivex.plugins.RxJavaPlugins;
 
 import static com.github.technoir42.rxjava2.extensions.Util.requireNonNull;
 
+/**
+ * If upstream terminates with an error transforms the error by applying a provided function and
+ * terminates with the resulting error instead.
+ */
 public final class SingleMapError<T> extends Single<T> {
     private final Single<T> source;
     private final Function<Throwable, Throwable> errorMapper;
