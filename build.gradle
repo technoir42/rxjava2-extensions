@@ -49,7 +49,6 @@ test {
 publishing {
     publications {
         maven(MavenPublication) {
-            artifactId "rxjava2-extensions"
             from components.java
 
             pom {
